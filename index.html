@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GAMERS HUB | 本音を言える場所をつくる</title>
+  <meta name="description" content="仮想通貨投げ銭機能を持つ次世代SNSプラットフォーム。2026年、福岡から。"/>
+  <meta property="og:title" content="GAMERS HUB"/>
+  <meta property="og:type" content="website"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:#fff;font-family:'Inter','Zen Kaku Gothic New',sans-serif;color:#0a0a0a;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-l{opacity:0;transform:translateX(-20px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal-l.visible{opacity:1;transform:translateX(0);}
+    .reveal-r{opacity:0;transform:translateX(20px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal-r.visible{opacity:1;transform:translateX(0);}
+    .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
+
+
+    /* ネオンアクセント */
+    @keyframes neonPulse{0%,100%{box-shadow:0 0 8px rgba(245,165,0,0.4),0 0 20px rgba(245,165,0,0.15);}50%{box-shadow:0 0 16px rgba(245,165,0,0.7),0 0 40px rgba(245,165,0,0.25);}}
+    @keyframes neonText{0%,100%{text-shadow:0 0 8px rgba(245,165,0,0.5);}50%{text-shadow:0 0 16px rgba(245,165,0,0.9),0 0 32px rgba(245,165,0,0.4);}}
+    @keyframes lineGlow{0%,100%{opacity:0.4;}50%{opacity:1;}}
+    @keyframes badgePulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:0.5;}}
+
+    /* LANG */
+    .lang-toggle{display:flex;background:#f5f5f5;border-radius:8px;padding:3px;gap:2px;}
+    .lang-btn{background:transparent;border:none;padding:5px 12px;font-family:'Inter',sans-serif;font-size:12px;color:#888;cursor:pointer;border-radius:6px;transition:all .2s;font-weight:500;}
+    .lang-btn.active{background:#fff;color:#0a0a0a;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+
+    /* NAV */
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:68px;background:rgba(255,255,255,0.95);border-bottom:1px solid #f0f0f0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+    .logo{display:flex;align-items:center;text-decoration:none;}
+    .logo-img{height:42px;width:auto;object-fit:contain;}
+    .nav-links{display:flex;gap:32px;list-style:none;}
+    .nav-links a{color:#555;text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;}
+    .nav-links a:hover{color:#f5a500;}
+    .nav-cta{background:#f5a500;color:#fff;border:none;padding:10px 22px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;}
+    .nav-cta:hover{background:#e09500;transform:translateY(-1px);box-shadow:0 4px 20px rgba(245,165,0,0.4),0 0 30px rgba(245,165,0,0.15);}
+
+    /* HERO */
+    .hero{padding:100px 48px 80px;background:linear-gradient(135deg,#fff 0%,#fff8f0 40%,#f0f7ff 100%);position:relative;overflow:hidden;}
+    .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+    .hero-bg-blob{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(245,165,0,0.08),transparent 70%);top:-100px;right:-100px;pointer-events:none;}
+    .hero-bg-blob2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.06),transparent 70%);bottom:-50px;left:-50px;pointer-events:none;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #f5a500;border-radius:50px;padding:6px 16px;margin-bottom:24px;animation:neonPulse 3s ease-in-out infinite;}
+    .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#f5a500;animation:badgePulse 2s ease-in-out infinite;}
+    @keyframes badgePulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:0.5;}}
+    .hero-badge span{font-size:12px;font-weight:600;color:#c47f00;letter-spacing:0.5px;}
+    .hero h1{font-family:'Orbitron',sans-serif;font-size:48px;line-height:1.15;font-weight:900;color:#0a0a0a;margin-bottom:20px;letter-spacing:-0.5px;}
+    .hero h1 em{font-style:normal;background:linear-gradient(135deg,#f5a500,#ff6b00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 8px rgba(245,165,0,0.5));animation:neonText 3s ease-in-out infinite;}
+    .hero p{font-size:17px;color:#555;line-height:1.8;margin-bottom:36px;font-weight:400;}
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+    .btn-primary{background:linear-gradient(135deg,#f5a500,#ff6b00);color:#fff;border:none;padding:14px 32px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;border-radius:12px;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(245,165,0,0.3);}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,165,0,0.4),0 0 40px rgba(245,165,0,0.2);}
+    .btn-secondary{background:#fff;color:#0a0a0a;border:1.5px solid #e5e5e5;padding:13px 28px;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;border-radius:12px;cursor:pointer;transition:all .2s;}
+    .btn-secondary:hover{border-color:#f5a500;color:#f5a500;}
+
+    /* HERO CARD */
+    .hero-card{background:#fff;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.08),0 0 30px rgba(245,165,0,0.06);border:1px solid #f5e0a0;position:relative;}
+    .hero-card::before{content:'';position:absolute;top:0;left:24px;right:24px;height:2px;background:linear-gradient(90deg,transparent,#f5a500,#ff6b00,#f5a500,transparent);border-radius:2px;box-shadow:0 0 12px rgba(245,165,0,0.6);animation:lineGlow 2s ease-in-out infinite;}
+    .hv-top{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+    .hv-av{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#f5a500,#ff6b00);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;}
+    .hv-name{font-size:14px;font-weight:600;color:#0a0a0a;}
+    .hv-time{font-size:11px;color:#aaa;}
+    .hv-online{display:inline-flex;align-items:center;gap:5px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:50px;padding:3px 10px;font-size:11px;color:#276749;margin-left:auto;font-weight:500;}
+    .hv-online .gd{width:6px;height:6px;border-radius:50%;background:#48bb78;}
+    .hv-msg{font-size:13px;color:#444;line-height:1.65;background:#f9f9f9;border-radius:12px;padding:12px 16px;margin-bottom:8px;border:1px solid #f0f0f0;}
+    .hv-msg.accent{background:linear-gradient(135deg,#fff8ec,#fff3e0);border-color:#f5e0a0;}
+    .hv-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+    .hv-st{background:#f9f9f9;border:1px solid #f0f0f0;border-radius:12px;padding:12px 16px;}
+    .hv-st .n{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:#0a0a0a;}
+    .hv-st .l{font-size:11px;color:#aaa;margin-top:2px;}
+
+    /* SOCIAL PROOF */
+    .proof{background:#fafafa;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;padding:24px 48px;}
+    .proof-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:32px;}
+    .proof-label{font-size:12px;color:#aaa;font-weight:500;white-space:nowrap;}
+    .proof-items{display:flex;gap:32px;flex-wrap:wrap;}
+    .proof-item{font-size:13px;font-weight:600;color:#ccc;letter-spacing:1px;text-transform:uppercase;}
+
+    /* TICKER */
+    .ticker{background:#0a0a0a;padding:14px 0;overflow:hidden;}
+    .ticker-track{display:flex;gap:48px;animation:tickerMove 20s linear infinite;white-space:nowrap;}
+    @keyframes tickerMove{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    .ticker-item{font-size:12px;font-weight:600;color:#444;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:16px;flex-shrink:0;font-family:'Inter',sans-serif;}
+    .ticker-item .sep{color:#f5a500;font-size:14px;}
+
+    /* SERVICES */
+    .services{padding:88px 48px;background:#fff;}
+    .section-inner{max-width:1100px;margin:0 auto;}
+    .section-tag{display:inline-flex;align-items:center;gap:6px;background:#fff8ec;border:1.5px solid #f5a500;color:#c47f00;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:16px;box-shadow:0 0 12px rgba(245,165,0,0.15);}
+    .dot3{width:5px;height:5px;border-radius:50%;background:#f5a500;box-shadow:0 0 6px rgba(245,165,0,0.8),0 0 12px rgba(245,165,0,0.4);}
+    h2.sh{font-family:'Orbitron',sans-serif;font-size:32px;font-weight:700;color:#0a0a0a;margin-bottom:10px;line-height:1.2;}
+    p.ss{color:#888;font-size:16px;margin-bottom:48px;max-width:520px;line-height:1.75;}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+    .card{border-radius:16px;padding:28px;border:1.5px solid #f0f0f0;background:#fff;transition:all .25s;position:relative;overflow:hidden;}
+    .card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#f5a500,#ff6b00);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+    .card:hover{border-color:#f5a500;transform:translateY(-4px);box-shadow:0 16px 40px rgba(245,165,0,0.15),0 0 20px rgba(245,165,0,0.08);}
+    .card:hover::after{transform:scaleX(1);}
+    .card-num{font-size:12px;color:#ddd;font-weight:600;margin-bottom:16px;font-family:'Orbitron',sans-serif;letter-spacing:1px;}
+    .card h3{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#0a0a0a;}
+    .card p{font-size:14px;line-height:1.75;color:#666;}
+    .card-icon{margin-bottom:16px;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#fff8ec,#fff3e0);color:#f5a500;border:1px solid #f5e0a0;box-shadow:0 0 10px rgba(245,165,0,0.15);}
+    .card-icon svg{width:22px;height:22px;stroke-width:1.8;}
+
+    /* STATS */
+    .stats-band{background:linear-gradient(135deg,#0a0a0a,#1a1a2e);padding:64px 48px;}
+    .stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+    .stat-item{text-align:center;padding:0 32px;position:relative;}
+    .stat-item::after{content:'';position:absolute;right:0;top:15%;height:70%;width:1px;background:rgba(255,255,255,0.08);}
+    .stat-item:last-child::after{display:none;}
+    .stat-big{font-family:'Orbitron',sans-serif;font-size:48px;font-weight:900;color:#fff;display:block;letter-spacing:-1px;line-height:1;text-shadow:0 0 20px rgba(245,165,0,0.3);}
+    .stat-big span{color:#f5a500;text-shadow:0 0 20px rgba(245,165,0,0.6),0 0 40px rgba(245,165,0,0.3);animation:neonText 2.5s ease-in-out infinite;}
+    .stat-desc{font-size:13px;color:rgba(255,255,255,0.4);margin-top:10px;font-weight:500;letter-spacing:0.5px;}
+
+    /* ABOUT */
+    .about-sec{background:#fafafa;padding:88px 48px;border-top:1px solid #f0f0f0;}
+    .about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+    .al p{color:#666;font-size:15px;line-height:1.85;margin-bottom:14px;}
+    .bars{margin-top:28px;display:flex;flex-direction:column;gap:18px;}
+    .bar-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+    .bar-label .bname{font-size:13px;font-weight:500;color:#333;}
+    .bar-label .bpct{font-size:11px;font-weight:600;color:#f5a500;background:#fff8ec;border:1px solid #f5e0a0;padding:2px 10px;border-radius:50px;}
+    .bar-track{background:#f0f0f0;border-radius:50px;height:6px;overflow:hidden;}
+    .bar-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,#f5a500,#ff6b00);box-shadow:0 0 8px rgba(245,165,0,0.4);}
+    .vision-box{background:linear-gradient(135deg,#0a0a0a,#1a1a2e);border-radius:20px;padding:36px;position:relative;overflow:hidden;}
+    .vision-box::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(245,165,0,0.15),transparent 70%);}
+    .vision-box .vl{font-size:11px;font-weight:600;letter-spacing:3px;color:#f5a500;text-transform:uppercase;margin-bottom:16px;}
+    .vision-box blockquote{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:18px;border:none;padding:0;}
+    .vision-box blockquote em{font-style:normal;color:#f5a500;text-shadow:0 0 12px rgba(245,165,0,0.6),0 0 24px rgba(245,165,0,0.3);animation:neonText 3s ease-in-out infinite;}
+    .vision-box p{color:rgba(255,255,255,0.5);font-size:14px;line-height:1.8;}
+
+    /* COMPANY */
+    .company-sec{background:#fff;padding:88px 48px;}
+    .co-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+    .co-aside h2.sh{font-size:28px;margin-bottom:16px;}
+    .co-aside p{color:#888;font-size:14px;line-height:1.8;margin-bottom:28px;}
+    .co-tags{display:flex;flex-wrap:wrap;gap:8px;}
+    .co-tag{background:#f9f9f9;color:#555;font-size:12px;font-weight:500;padding:6px 16px;border-radius:50px;border:1.5px solid #f0f0f0;transition:all .2s;cursor:default;}
+    .co-tag:hover{border-color:#f5a500;color:#f5a500;background:#fff8ec;box-shadow:0 0 10px rgba(245,165,0,0.2);}
+    .co-table{border:1.5px solid #f0f0f0;border-radius:16px;overflow:hidden;}
+    .co-row{display:flex;border-bottom:1px solid #f8f8f8;transition:background .15s;}
+    .co-row:hover{background:#fff8f0;}
+    .co-row:last-child{border-bottom:none;}
+    .co-row .l{font-size:11px;color:#f5a500;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;min-width:110px;padding:14px 18px;background:#fafafa;border-right:1px solid #f5f5f5;flex-shrink:0;display:flex;align-items:flex-start;line-height:1.5;}
+    .co-row .v{font-size:14px;color:#333;font-weight:400;line-height:1.5;padding:14px 18px;flex:1;}
+    .biz-tags{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;flex:1;align-items:center;}
+    .biz-tag{display:inline-flex;align-items:center;gap:4px;background:#fff8ec;border:1px solid #f5e0a0;color:#c47f00;font-size:12px;font-weight:500;padding:4px 12px;border-radius:50px;}
+
+    /* CONTACT */
+    .contact-sec{background:#fafafa;padding:88px 48px;border-top:1px solid #f0f0f0;}
+    .contact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
+    .contact-left h2.sh{font-size:30px;margin-bottom:14px;}
+    .contact-left p{color:#888;font-size:14px;line-height:1.8;margin-bottom:28px;}
+    .ci-list{display:flex;flex-direction:column;gap:12px;}
+    .ci{display:flex;align-items:center;gap:10px;font-size:14px;color:#555;}
+    .ci-dot{width:8px;height:8px;border-radius:50%;background:#f5a500;flex-shrink:0;}
+    form{display:flex;flex-direction:column;gap:12px;}
+    input,textarea{background:#fff;border:1.5px solid #e5e5e5;color:#0a0a0a;padding:14px 18px;font-family:'Inter','Zen Kaku Gothic New',sans-serif;font-size:14px;border-radius:12px;outline:none;transition:all .2s;width:100%;}
+    input:focus,textarea:focus{border-color:#f5a500;box-shadow:0 0 0 3px rgba(245,165,0,0.1);}
+    input::placeholder,textarea::placeholder{color:#bbb;}
+    textarea{resize:vertical;}
+    .sub-btn{background:linear-gradient(135deg,#f5a500,#ff6b00);color:#fff;border:none;padding:15px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;border-radius:12px;cursor:pointer;transition:all .25s;width:100%;box-shadow:0 4px 16px rgba(245,165,0,0.3);}
+    .sub-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,165,0,0.4),0 0 40px rgba(245,165,0,0.2);}
+
+    /* FOOTER */
+    footer{background:#fff;border-top:1px solid #f0f0f0;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-logo{display:flex;align-items:center;text-decoration:none;}
+    .copy{font-size:12px;color:#aaa;}
+    .footer-links{display:flex;gap:24px;}
+    .footer-links a{font-size:12px;color:#aaa;text-decoration:none;transition:color .2s;}
+    .footer-links a:hover{color:#f5a500;text-shadow:0 0 8px rgba(245,165,0,0.6);}
+
+    /* MODAL */
+    #modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;backdrop-filter:blur(4px);}
+    #modal-box{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:20px;padding:40px;max-width:680px;width:90%;max-height:80vh;overflow-y:auto;z-index:1001;box-shadow:0 40px 80px rgba(0,0,0,0.2);}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #f5a500;}
+    #modal-title{font-family:'Orbitron',sans-serif;font-size:18px;color:#0a0a0a;letter-spacing:0.5px;}
+    .modal-close{background:none;border:1.5px solid #e5e5e5;font-size:18px;cursor:pointer;color:#888;line-height:1;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    .modal-close:hover{border-color:#f5a500;color:#f5a500;}
+    #modal-content{font-size:14px;color:#444;line-height:1.9;}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav{padding:0 20px;height:60px;}
+      .nav-links{display:none;}
+      .nav-cta{padding:8px 16px;font-size:13px;}
+      .logo-img{height:36px;}
+      .hero{padding:52px 20px 40px;}
+      .hero-inner{grid-template-columns:1fr;gap:36px;}
+      .hero h1{font-size:32px;}
+      .hero p{font-size:15px;margin-bottom:28px;}
+      .hero-btns{flex-direction:column;}
+      .btn-primary,.btn-secondary{width:100%;text-align:center;}
+      .proof{padding:20px;}
+      .proof-inner{flex-direction:column;gap:16px;}
+      section,.services,.about-sec,.company-sec,.contact-sec{padding:56px 20px;}
+      h2.sh{font-size:24px;}
+      p.ss{font-size:14px;margin-bottom:32px;}
+      .cards{grid-template-columns:1fr;gap:14px;}
+      .stats-band{padding:44px 20px;}
+      .stats-inner{grid-template-columns:repeat(3,1fr);}
+      .stat-big{font-size:30px;}
+      .about-inner,.co-grid,.contact-inner{grid-template-columns:1fr;gap:36px;}
+      .co-row{flex-direction:column;}
+      .co-row .l{min-width:unset;padding:10px 16px 4px;border-right:none;border-bottom:1px solid #f5f5f5;width:100%;}
+      .co-row .v{padding:4px 16px 12px;}
+      .biz-tags{padding:4px 16px 12px;}
+      footer{padding:20px;flex-direction:column;align-items:flex-start;}
+    }
+    @media(max-width:400px){
+      .hero h1{font-size:26px;}
+      h2.sh{font-size:20px;}
+      .stats-inner{grid-template-columns:1fr;gap:20px;}
+      .stat-item::after{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="logo"><img src="data:image/png;base64,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" alt="GAMERS HUB" class="logo-img" style="height:52px;width:auto;"/></a>
+  <ul class="nav-links">
+    <li><a href="#services" data-ja="サービス" data-en="Services">サービス</a></li>
+    <li><a href="#about" data-ja="会社概要" data-en="About">会社概要</a></li>
+    <li><a href="#company" data-ja="会社情報" data-en="Company">会社情報</a></li>
+    <li><a href="anone.html" data-ja="あのね ↗" data-en="Anone ↗">あのね ↗</a></li>
+    <li><a href="#contact" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ja" onclick="setLang('ja')">JA</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-cta" data-ja="お問い合わせ" data-en="Contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">お問い合わせ</button>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-bg-blob"></div>
+  <div class="hero-bg-blob2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="dot"></span><span data-ja="新しいSNSプラットフォーム、2026年始動" data-en="New SNS Platform — Launching 2026">新しいSNSプラットフォーム、2026年始動</span></div>
+      <h1>本音を言える<br>場所が、<em>ここに</em>ある。</h1>
+      <p data-ja="言いたいことを発信しながら、共感した投稿に仮想通貨で投げ銭ができる。GAMERS HUBが、新しいSNSの形をつくります。" data-en="Express yourself freely — and tip the posts you love with cryptocurrency. GAMERS HUB is redefining what social media can be.">言いたいことを発信しながら、共感した投稿に仮想通貨で投げ銭ができる。GAMERS HUBが、新しいSNSの形をつくります。</p>
+      <div class="hero-btns">
+        <button class="btn-primary" data-ja="サービスを見る" data-en="Explore Services" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">サービスを見る</button>
+        <button class="btn-secondary" data-ja="詳しく見る →" data-en="Learn More →" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">詳しく見る →</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hv-top">
+        <div class="hv-av">K</div>
+        <div>
+          <div class="hv-name">Kaede</div>
+          <div class="hv-time" data-ja="たった今" data-en="Just now">たった今</div>
+        </div>
+        <div class="hv-online"><span class="gd"></span><span data-ja="オンライン" data-en="Online">オンライン</span></div>
+      </div>
+      <div class="hv-msg" data-ja="「正直に言うと、もっと自由に話せる場所が欲しかった。ここなら言える気がする。」" data-en="&quot;Honestly, I've always wanted a place to speak freely. I feel like I can do that here.&quot;">「正直に言うと、もっと自由に話せる場所が欲しかった。ここなら言える気がする。」</div>
+      <div class="hv-msg accent" data-ja="「立場とか関係なく、みんなが集まれる場所ってすごく大事だと思う。」" data-en="&quot;A place where anyone can gather regardless of status — that really matters.&quot;">「立場とか関係なく、みんなが集まれる場所ってすごく大事だと思う。」</div>
+      <div class="hv-stats">
+        <div class="hv-st"><div class="n">12.4K</div><div class="l" data-ja="アクティブユーザー" data-en="Active Users">アクティブユーザー</div></div>
+        <div class="hv-st"><div class="n">98%</div><div class="l" data-ja="満足度" data-en="Satisfaction">満足度</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proof">
+  <div class="proof-inner">
+    <span class="proof-label">参加者の属性</span>
+    <div class="proof-items">
+      <span class="proof-item">Creators</span>
+      <span class="proof-item">Gamers</span>
+      <span class="proof-item">Professionals</span>
+      <span class="proof-item">Students</span>
+      <span class="proof-item">Athletes</span>
+    </div>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">SNS PLATFORM <span class="sep">✦</span></div>
+    <div class="ticker-item">CRYPTO TIPPING <span class="sep">✦</span></div>
+    <div class="ticker-item">WEB3 <span class="sep">✦</span></div>
+    <div class="ticker-item">AI TOOLS <span class="sep">✦</span></div>
+    <div class="ticker-item">FREE SPEECH <span class="sep">✦</span></div>
+    <div class="ticker-item">COMMUNITY <span class="sep">✦</span></div>
+    <div class="ticker-item">FUKUOKA 2026 <span class="sep">✦</span></div>
+    <div class="ticker-item">SNS PLATFORM <span class="sep">✦</span></div>
+    <div class="ticker-item">CRYPTO TIPPING <span class="sep">✦</span></div>
+    <div class="ticker-item">WEB3 <span class="sep">✦</span></div>
+    <div class="ticker-item">AI TOOLS <span class="sep">✦</span></div>
+    <div class="ticker-item">FREE SPEECH <span class="sep">✦</span></div>
+    <div class="ticker-item">COMMUNITY <span class="sep">✦</span></div>
+    <div class="ticker-item">FUKUOKA 2026 <span class="sep">✦</span></div>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-tag reveal"><span class="dot3"></span>Services</div>
+    <h2 class="sh reveal d1">私たちのサービス</h2>
+    <p class="ss reveal d2" data-ja="仮想通貨投げ銭×SNSで、新しいコミュニケーションの形をつくります。" data-en="Crypto tipping × SNS — redefining how people connect and reward each other.">仮想通貨投げ銭×SNSで、新しいコミュニケーションの形をつくります。</p>
+    <div class="cards">
+      <div class="card reveal d1">
+        <div class="card-num">01</div>
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v2m0 6v2"/><path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 1.5-1 2-2.5 2.5S9 15 9 16.5h6"/></svg></div>
+        <h3 data-ja="仮想通貨で投げ銭" data-en="Crypto Tipping">仮想通貨で投げ銭</h3>
+        <p data-ja="共感した投稿に仮想通貨を送れる。発信者が直接報われる、新しいSNSの仕組み。" data-en="Send cryptocurrency to posts you love. A new SNS model where creators are directly rewarded.">共感した投稿に仮想通貨を送れる。発信者が直接報われる、新しいSNSの仕組み。</p>
+      </div>
+      <div class="card reveal d2">
+        <div class="card-num">02</div>
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/></svg></div>
+        <h3 data-ja="自由な発信・本音のSNS" data-en="Free Speech SNS">自由な発信・本音のSNS</h3>
+        <p data-ja="業界・年齢・立場を問わず、誰もが本音を発信できるコミュニティ。言いたいことを、言える場所へ。" data-en="A community where anyone can speak their mind — regardless of industry, age, or background.">業界・年齢・立場を問わず、誰もが本音を発信できるコミュニティ。</p>
+      </div>
+      <div class="card reveal d3">
+        <div class="card-num">03</div>
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><path d="M9 13h.01M15 13h.01"/><path d="M9 17h6"/></svg></div>
+        <h3 data-ja="AIサポート機能" data-en="AI Support">AIサポート機能</h3>
+        <p data-ja="投稿の提案・トレンド分析・自動モデレーションなど、AIがユーザーの発信を強力にサポートします。" data-en="AI-powered suggestions, trend analysis, and auto-moderation to supercharge your expression.">投稿の提案・トレンド分析・自動モデレーションなど、AIがユーザーの発信を強力にサポートします。</p>
+      </div>
+      <div class="card reveal d4">
+        <div class="card-num">04</div>
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><path d="M14 19c0-2 2-3.5 4-3.5s3 1 3 3"/></svg></div>
+        <h3 data-ja="コミュニティ運営" data-en="Community Management">コミュニティ運営</h3>
+        <p data-ja="誰もが安心して使えるよう、健全なコミュニティ環境を整備。多様な声が尊重される場をつくります。" data-en="A safe and healthy community where diverse voices are respected and everyone feels welcome.">誰もが安心して使えるよう、健全なコミュニティ環境を整備。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><span class="stat-big">200<span>万</span></span><div class="stat-desc" data-ja="資本金" data-en="Capital">資本金</div></div>
+    <div class="stat-item reveal d1"><span class="stat-big">4<span>+</span></span><div class="stat-desc" data-ja="主要サービス" data-en="Core Services">主要サービス</div></div>
+    <div class="stat-item reveal d2"><span class="stat-big">2026</span><div class="stat-desc" data-ja="福岡にて設立" data-en="Founded in Fukuoka">福岡にて設立</div></div>
+  </div>
+</div>
+
+<section class="about-sec" id="about">
+  <div class="about-inner">
+    <div class="al reveal-l">
+      <div class="section-tag"><span class="dot3"></span>About</div>
+      <h2 class="sh">GAMERS <span style="background:linear-gradient(135deg,#f5a500,#ff6b00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">HUB</span>について</h2>
+      <p data-ja="GAMERS HUBは、すべての人が本音で語り合える場所を作ることを目指して設立されました。" data-en="GAMERS HUB was founded with a mission to create a space where everyone can speak their truth.">GAMERS HUBは、すべての人が本音で語り合える場所を作ることを目指して設立されました。</p>
+      <p data-ja="「GAMERS」という名前は、ゲーム業界に限らず「人生というゲームを真剣に生きるすべての人」を指しています。立場や肩書きを越えて、本音で語り合える場をテクノロジーで実現します。" data-en="GAMERS isn't about gaming — it refers to everyone who plays the game of life seriously. We use technology to create a place beyond titles and positions.">「GAMERS」という名前は、ゲーム業界に限らず「人生というゲームを真剣に生きるすべての人」を指しています。</p>
+      <div class="bars">
+        <div class="bar-item">
+          <div class="bar-label"><span class="bname" data-ja="SNSプラットフォーム" data-en="SNS Platform">SNSプラットフォーム</span><span class="bpct" data-ja="開発中" data-en="In Dev">開発中</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span class="bname" data-ja="AIサポート機能" data-en="AI Support">AIサポート機能</span><span class="bpct" data-ja="試作中" data-en="Prototype">試作中</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:55%;"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span class="bname" data-ja="仮想通貨決済" data-en="Crypto Pay">仮想通貨決済</span><span class="bpct" data-ja="計画中" data-en="Planning">計画中</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:35%;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="vision-box reveal-r">
+      <div class="vl">Our Vision</div>
+      <blockquote data-ja="「言いたいことを、<em>言える世界へ。</em>」" data-en="&quot;Toward a world where you can say <em>what you mean.</em>&quot;">「言いたいことを、<em>言える世界へ。</em>」</blockquote>
+      <p data-ja="立場や背景に関わらず、誰もが自分らしく表現できる場所をテクノロジーの力で実現します。コミュニティの力を信じ、人と人がより深くつながれる未来をつくります。" data-en="We use technology to create a place where anyone can express themselves. We believe in the power of community to connect people more deeply.">立場や背景に関わらず、誰もが自分らしく表現できる場所をテクノロジーの力で実現します。コミュニティの力を信じ、人と人がより深くつながれる未来をつくります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="company-sec" id="company">
+  <div class="co-grid">
+    <div class="co-aside reveal-l">
+      <div class="section-tag"><span class="dot3"></span>Company</div>
+      <h2 class="sh">会社情報</h2>
+      <p data-ja="福岡を拠点に、SNSプラットフォームの開発からコミュニティ運営まで一貫してサービスを提供しています。" data-en="Based in Fukuoka, we provide end-to-end services from SNS platform development to community support.">福岡を拠点に、SNSプラットフォームの開発からコミュニティ運営まで一貫してサービスを提供しています。</p>
+      <div class="co-tags">
+        <span class="co-tag" data-ja="SNS開発" data-en="SNS Dev">SNS開発</span>
+        <span class="co-tag" data-ja="AIサポート" data-en="AI Support">AIサポート</span>
+        <span class="co-tag" data-ja="仮想通貨" data-en="Crypto">仮想通貨</span>
+        <span class="co-tag" data-ja="コミュニティ" data-en="Community">コミュニティ</span>
+      </div>
+    </div>
+    <div class="co-table reveal-r">
+      <div class="co-row"><span class="l" data-ja="会社名" data-en="Company">会社名</span><span class="v" data-ja="GAMERS HUB（株式会社）" data-en="GAMERS HUB Co., Ltd.">GAMERS HUB（株式会社）</span></div>
+      <div class="co-row"><span class="l" data-ja="設立" data-en="Founded">設立</span><span class="v" data-ja="2026年" data-en="2026">2026年</span></div>
+      <div class="co-row"><span class="l" data-ja="代表取締役" data-en="CEO">代表取締役</span><span class="v" data-ja="川瀬 楓馬" data-en="Fuma Kawase">川瀬 楓馬</span></div>
+      <div class="co-row"><span class="l" data-ja="所在地" data-en="Location">所在地</span><span class="v" data-ja="福岡市中央区大名" data-en="Daimyo, Chuo-ku, Fukuoka">福岡市中央区大名</span></div>
+      <div class="co-row"><span class="l" data-ja="資本金" data-en="Capital">資本金</span><span class="v" data-ja="200万円" data-en="¥2,000,000">200万円</span></div>
+      <div class="co-row"><span class="l" data-ja="主力サービス" data-en="Flagship">主力サービス</span><span class="v" data-ja="あのね（SNSプラットフォーム）<a href='anone.html' style='color:#f5a500;text-decoration:none;font-weight:500;margin-left:8px;'>詳細 →</a>" data-en="Anone (SNS Platform) <a href='anone.html' style='color:#f5a500;text-decoration:none;font-weight:500;margin-left:8px;'>Details →</a>">あのね（SNSプラットフォーム）<a href='anone.html' style='color:#f5a500;text-decoration:none;font-weight:500;margin-left:8px;'>詳細 →</a></span></div>
+      <div class="co-row">
+        <span class="l" data-ja="事業内容" data-en="Business">事業内容</span>
+        <div class="biz-tags">
+          <span class="biz-tag" data-ja="あのね（SNS）" data-en="Anone (SNS)">あのね（SNS）</span>
+          <span class="biz-tag" data-ja="SNSプラットフォーム" data-en="SNS Platform">SNSプラットフォーム</span>
+          <span class="biz-tag" data-ja="仮想通貨投げ銭" data-en="Crypto Tipping">仮想通貨投げ銭</span>
+          <span class="biz-tag" data-ja="AIサポート" data-en="AI Support">AIサポート</span>
+          <span class="biz-tag" data-ja="コミュニティ運営" data-en="Community">コミュニティ運営</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-sec" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal-l">
+      <div class="section-tag"><span class="dot3"></span>Contact</div>
+      <h2 class="sh" data-ja="お問い合わせ" data-en="Contact Us">お問い合わせ</h2>
+      <p data-ja="サービスについてのご質問・ご相談、採用に関するお問い合わせはこちらから。" data-en="Feel free to reach out with any questions about our services or career opportunities.">サービスについてのご質問・ご相談、採用に関するお問い合わせはこちらから。</p>
+      <div class="ci-list">
+        <div class="ci"><span class="ci-dot"></span><span data-ja="通常3営業日以内にご返信いたします" data-en="We typically respond within 3 business days.">通常3営業日以内にご返信いたします</span></div>
+        <div class="ci"><span class="ci-dot"></span><span data-ja="所在地：福岡市中央区大名" data-en="Location: Daimyo, Chuo-ku, Fukuoka">所在地：福岡市中央区大名</span></div>
+      </div>
+    </div>
+    <form class="reveal-r" onsubmit="handleSubmit(event)">
+      <input type="text" data-ja-placeholder="お名前" data-en-placeholder="Your Name" placeholder="お名前" required/>
+      <input type="email" data-ja-placeholder="メールアドレス" data-en-placeholder="Email Address" placeholder="メールアドレス" required/>
+      <input type="text" data-ja-placeholder="件名" data-en-placeholder="Subject" placeholder="件名"/>
+      <textarea rows="5" data-ja-placeholder="メッセージ" data-en-placeholder="Message" placeholder="メッセージ"></textarea>
+      <button type="submit" class="sub-btn" data-ja="送信する →" data-en="Send Message →">送信する →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="#top" class="footer-logo"><img src="data:image/png;base64,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" alt="GAMERS HUB" style="height:52px;width:auto;object-fit:contain;"/></a>
+  <div class="copy">© 2026 GAMERS HUB. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">プライバシーポリシー</a>
+    <a href="#" onclick="openModal('terms')">利用規約</a>
+    <a href="#" onclick="openModal('tokutei')">特定商取引法</a>
+  </div>
+</footer>
+
+<div id="modal-overlay" onclick="closeModal()"></div>
+<div id="modal-box">
+  <div class="modal-header">
+    <h2 id="modal-title"></h2>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div id="modal-content"></div>
+</div>
+
+<script>
+  // スクロールアニメーション
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => observer.observe(el));
+
+  // 言語切り替え
+  let currentLang = 'ja';
+  function setLang(lang){
+    currentLang = lang;
+    document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.querySelectorAll('[data-ja]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if(text) el.innerHTML = text;
+    });
+    document.querySelectorAll('[data-ja-placeholder]').forEach(el => {
+      el.placeholder = el.getAttribute('data-' + lang + '-placeholder') || '';
+    });
+  }
+
+  // モーダル
+  const modalContents = {
+    privacy: {
+      title: 'プライバシーポリシー',
+      content: `<p style="margin-bottom:16px;">GAMERS HUB（以下「当社」）は、ユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。</p><h3 style="font-size:15px;font-weight:700;color:#f5a500;margin:20px 0 8px;">収集する情報</h3><ul style="padding-left:20px;margin-bottom:12px;"><li>氏名・メールアドレス等の登録情報</li><li>投稿内容・コメント・送受信履歴</li><li>仮想通貨ウォレットアドレス・取引履歴</li><li>IPアドレス・ブラウザ情報・アクセスログ</li></ul><h3 style="font-size:15px;font-weight:700;color:#f5a500;margin:20px 0 8px;">利用目的</h3><ul style="padding-left:20px;margin-bottom:12px;"><li>サービスの提供・運営・改善</li><li>ユーザーサポートへの対応</li><li>不正利用の防止・セキュリティの確保</li></ul><h3 style="font-size:15px;font-weight:700;color:#f5a500;margin:20px 0 8px;">第三者提供</h3><p>当社は、法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供しません。</p><p style="margin-top:20px;color:#aaa;font-size:12px;">制定日：2026年</p>`
+    },
+    terms: {
+      title: '利用規約',
+      content: `<p style="margin-bottom:16px;">本規約は、GAMERS HUBが提供するSNSプラットフォームサービスの利用条件を定めるものです。</p><h3 style="font-size:15px;font-weight:700;color:#f5a500;margin:20px 0 8px;">仮想通貨投げ銭機能</h3><ul style="padding-left:20px;margin-bottom:12px;"><li>投げ銭機能は、ユーザー間の任意の支援を目的とするものです</li><li>送受信した仮想通貨の価値変動について当社は責任を負いません</li><li>取引に関する税務上の責任はユーザー自身が負うものとします</li><li>不正な取引・マネーロンダリング等の行為を禁止します</li></ul><h3 style="font-size:15px;font-weight:700;color:#f5a500;margin:20px 0 8px;">禁止事項</h3><ul style="padding-left:20px;margin-bottom:12px;"><li>法令・公序良俗に反する行為</li><li>他のユーザーへの誹謗中傷・ハラスメント</li><li>虚偽情報の投稿・なりすまし行為</li><li>スパム・フィッシング等の迷惑行為</li></ul><p style="margin-top:20px;color:#aaa;font-size:12px;">制定日：2026年</p>`
+    },
+    tokutei: {
+      title: '特定商取引法に基づく表記',
+      content: `<table style="width:100%;border-collapse:collapse;font-size:14px;"><tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;min-width:130px;vertical-align:top;">会社名</td><td style="padding:12px 8px;color:#333;">GAMERS HUB（株式会社）</td></tr><tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;vertical-align:top;">代表者</td><td style="padding:12px 8px;color:#333;">川瀬 楓馬</td></tr><tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;vertical-align:top;">所在地</td><td style="padding:12px 8px;color:#333;">福岡市中央区大名</td></tr><tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;vertical-align:top;">資本金</td><td style="padding:12px 8px;color:#333;">200万円</td></tr><tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;vertical-align:top;">サービス</td><td style="padding:12px 8px;color:#333;">SNSプラットフォーム・仮想通貨投げ銭・AIサポート</td></tr><tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;vertical-align:top;">料金</td><td style="padding:12px 8px;color:#333;">基本利用無料（一部有料プランあり）</td></tr><tr><td style="padding:12px 8px;color:#f5a500;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;vertical-align:top;">返金</td><td style="padding:12px 8px;color:#333;">仮想通貨の性質上、送信済みの投げ銭は原則返金不可</td></tr></table><p style="margin-top:20px;color:#aaa;font-size:12px;">制定日：2026年</p>`
+    }
+  };
+
+  function openModal(type){
+    const data = modalContents[type];
+    document.getElementById('modal-title').textContent = data.title;
+    document.getElementById('modal-content').innerHTML = data.content;
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-box').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    return false;
+  }
+  function closeModal(){
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('modal-box').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const btn = e.target.querySelector('.sub-btn');
+    btn.textContent = currentLang === 'ja' ? '送信しました ✓' : 'Sent ✓';
+    btn.style.background = 'linear-gradient(135deg,#48bb78,#38a169)';
+    setTimeout(() => {
+      btn.textContent = currentLang === 'ja' ? '送信する →' : 'Send Message →';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
