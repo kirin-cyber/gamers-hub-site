@@ -14,11 +14,15 @@
 
 ---
 
-## 2. SSHでのアクセス設定（初回のみ）
+## 2. アクセス設定（初回のみ）
 
-このリポジトリは GitHub 上にあり、SSH接続でクローンします。
+このリポジトリは GitHub 上にあり、現在 **Public（公開）** です。
+- **閲覧・クローンだけ**なら、SSH鍵の設定は不要です（下の HTTPS clone がすぐ使えます）。
+- **変更を push（共同編集）** するには、オーナーからの **コラボレーター招待を承諾**し、
+  SSH鍵の登録（下記）または HTTPS + 認証が必要です。
 
-**リポジトリ:** `git@github.com:kirin-cyber/gamers-hub-site.git`
+**リポジトリ（SSH）:** `git@github.com:kirin-cyber/gamers-hub-site.git`
+**リポジトリ（HTTPS）:** `https://github.com/kirin-cyber/gamers-hub-site.git`
 
 ### 2-1. SSH鍵を用意する
 すでに鍵がある場合はスキップ可。無い場合は作成します。
@@ -37,9 +41,10 @@ cat ~/.ssh/id_ed25519.pub   # 表示された内容をコピー
 ```
 GitHub → Settings → **SSH and GPG keys** → **New SSH key** に貼り付けて保存。
 
-### 2-3. リポジトリへの招待を受ける
-このリポジトリは `kirin-cyber` 配下の **プライベートリポジトリ**です。
-オーナーからコラボレーター招待（GitHubの通知メール）を受け取り、承諾してください。
+### 2-3. コラボレーター招待を承諾する（push する人のみ）
+共同編集（push）するには、オーナー（kirin-cyber）からのコラボレーター招待を承諾します。
+GitHubの **通知（ベルアイコン）またはメール**、もしくは
+`https://github.com/kirin-cyber/gamers-hub-site/invitations` を開いて **「Accept invitation」**。
 
 ### 2-4. 接続テスト
 ```bash
@@ -52,7 +57,12 @@ ssh -T git@github.com
 ## 3. クローン
 
 ```bash
+# SSH（鍵を登録済みの場合。push もこちら推奨）
 git clone git@github.com:kirin-cyber/gamers-hub-site.git
+
+# または HTTPS（鍵不要。閲覧・お試しに手軽）
+git clone https://github.com/kirin-cyber/gamers-hub-site.git
+
 cd gamers-hub-site
 ```
 
@@ -141,4 +151,5 @@ SUBDOMAIN=gamershub PROVIDER=serveo ./dev-tunnel.sh   # serveoで希望サブド
 
 - `Permission denied (publickey)` … SSH鍵がGitHubに未登録、または招待未承諾。手順2を再確認。
 - ページが崩れる／画像が出ない … `open` ではなくローカルサーバー（手順4-A）で確認。
-- リポジトリが見つからない … プライベートのため、コラボレーター招待の承諾が必要です。
+- push で `403 / permission denied` … コラボレーター招待の承諾がまだ、または権限不足。手順2-3を確認。
+- 招待が見つからない … `https://github.com/kirin-cyber/gamers-hub-site/invitations` を開く。
