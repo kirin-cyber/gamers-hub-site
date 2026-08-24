@@ -46,23 +46,28 @@ export default function MotionController() {
       const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       const progress = Math.min(window.scrollY / maxScroll, 1);
       root.style.setProperty("--scroll-progress", progress.toString());
-      root.style.setProperty("--hero-progress", Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1).toFixed(4));
+      root.style.setProperty(
+        "--hero-progress",
+        compactViewport ? "0" : Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1).toFixed(4),
+      );
       document.body.classList.toggle("is-scrolled", window.scrollY > 42);
 
-      kineticItems.forEach((element) => {
-        const rect = element.getBoundingClientRect();
-        const speed = Number(element.dataset.kinetic ?? "0.15");
-        const offset = (window.innerHeight - rect.top) * speed * -1;
-        element.style.setProperty("--kinetic-x", `${offset.toFixed(2)}px`);
-      });
+      if (!compactViewport) {
+        kineticItems.forEach((element) => {
+          const rect = element.getBoundingClientRect();
+          const speed = Number(element.dataset.kinetic ?? "0.15");
+          const offset = (window.innerHeight - rect.top) * speed * -1;
+          element.style.setProperty("--kinetic-x", `${offset.toFixed(2)}px`);
+        });
 
-      businessPanels.forEach((panel) => {
-        const rect = panel.getBoundingClientRect();
-        const panelProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-        panel.style.setProperty("--panel-progress", panelProgress.toFixed(4));
-        panel.style.setProperty("--panel-shift", `${((1 - panelProgress) * 46).toFixed(2)}px`);
-        panel.style.setProperty("--panel-scale", (0.97 + panelProgress * 0.03).toFixed(4));
-      });
+        businessPanels.forEach((panel) => {
+          const rect = panel.getBoundingClientRect();
+          const panelProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+          panel.style.setProperty("--panel-progress", panelProgress.toFixed(4));
+          panel.style.setProperty("--panel-shift", `${((1 - panelProgress) * 46).toFixed(2)}px`);
+          panel.style.setProperty("--panel-scale", (0.97 + panelProgress * 0.03).toFixed(4));
+        });
+      }
 
       if (!reduceMotion && window.innerWidth > 760) {
         parallaxItems.forEach((element) => {
@@ -137,10 +142,33 @@ export default function MotionController() {
       };
     });
 
-    const closeMenu = () => {
-      document.querySelector<HTMLDetailsElement>(".mobile-menu")?.removeAttribute("open");
+    const handleMenuLinkClick = (event: MouseEvent) => {
+      const link = event.currentTarget as HTMLAnchorElement;
+      const href = link.getAttribute("href");
+      const menu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
+
+      if (!compactViewport || !href?.startsWith("#")) {
+        menu?.removeAttribute("open");
+        return;
+      }
+
+      const target = document.getElementById(decodeURIComponent(href.slice(1)));
+      if (!target) {
+        menu?.removeAttribute("open");
+        return;
+      }
+
+      event.preventDefault();
+      menu?.removeAttribute("open");
+
+      window.requestAnimationFrame(() => {
+        const headerHeight = document.querySelector<HTMLElement>(".site-header")?.offsetHeight ?? 64;
+        const targetTop = window.scrollY + target.getBoundingClientRect().top - headerHeight;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: "auto" });
+        window.history.pushState(null, "", href);
+      });
     };
-    menuLinks.forEach((link) => link.addEventListener("click", closeMenu));
+    menuLinks.forEach((link) => link.addEventListener("click", handleMenuLinkClick));
 
     window.addEventListener("scroll", requestScrollUpdate, { passive: true });
     window.addEventListener("resize", requestScrollUpdate);
@@ -159,7 +187,7 @@ export default function MotionController() {
       revealObserver.disconnect();
       tiltCleanups.forEach((cleanup) => cleanup());
       magneticCleanups.forEach((cleanup) => cleanup());
-      menuLinks.forEach((link) => link.removeEventListener("click", closeMenu));
+      menuLinks.forEach((link) => link.removeEventListener("click", handleMenuLinkClick));
       window.removeEventListener("scroll", requestScrollUpdate);
       window.removeEventListener("resize", requestScrollUpdate);
       window.removeEventListener("pointermove", onPointerMove);

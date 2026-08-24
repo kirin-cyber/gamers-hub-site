@@ -51,6 +51,8 @@ export default function ContactForm() {
         <span>SUBJECT <b>必須</b></span>
         <select name="category" defaultValue="" required>
           <option value="" disabled>ご相談内容を選択してください</option>
+          <option>メディア運営支援</option>
+          <option>AIコンサルティング・生成AI導入</option>
           <option>AI・業務システム開発</option>
           <option>Webサイト・Webアプリ開発</option>
           <option>飲食店へのAI導入支援</option>

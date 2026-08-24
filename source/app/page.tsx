@@ -8,7 +8,7 @@ const companyRows = [
   ["設立", "2026年5月25日"],
   ["資本金", "300万円"],
   ["所在地", "福岡県福岡市中央区大名二丁目10番20号\nMKTOWNS大名 2階"],
-  ["事業内容", "AI・Web・業務システムの企画・開発・運用\n飲食店の運営"],
+  ["事業内容", "メディアの企画・運営支援\nAIコンサルティング・生成AI導入支援\nWeb・業務システムの企画・開発・運用\n飲食店の運営"],
 ];
 
 const structuredData = {
@@ -21,7 +21,7 @@ const structuredData = {
       alternateName: "GAMERS HUB",
       url: "https://www.gamershub.jp/",
       logo: "https://www.gamershub.jp/images/gamershub-logo.jpg",
-      description: "福岡を拠点に、AI・Web・業務システムの開発と飲食店DX支援を行う開発会社です。",
+      description: "福岡を拠点に、メディア運営支援、AIコンサルティング、生成AI導入、Web・業務システム開発を行う会社です。",
       address: {
         "@type": "PostalAddress",
         addressRegion: "福岡県",
@@ -29,7 +29,16 @@ const structuredData = {
         streetAddress: "大名二丁目10番20号 MKTOWNS大名2階",
         addressCountry: "JP",
       },
-      knowsAbout: ["AI開発", "Webシステム開発", "業務システム開発", "飲食店DX"],
+      knowsAbout: ["メディア運営支援", "AIコンサルティング", "生成AI導入", "Webシステム開発", "業務システム開発", "飲食店DX"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.gamershub.jp/#website",
+      url: "https://www.gamershub.jp/",
+      name: "GAMERS HUB",
+      alternateName: "株式会社GAMER’S HUB",
+      inLanguage: "ja-JP",
+      publisher: { "@id": "https://www.gamershub.jp/#organization" },
     },
     {
       "@type": "Restaurant",
@@ -107,7 +116,7 @@ export default function Home() {
             </div>
             <div className="hero-foot">
               <p className="hero-statement">AIの力で、<br />事業を動かす。</p>
-              <p className="hero-service">AI DEVELOPMENT<br />WEB / SYSTEM<br />RESTAURANT OPERATION</p>
+              <p className="hero-service">MEDIA OPERATIONS<br />AI CONSULTING<br />WEB / SYSTEM DEVELOPMENT</p>
               <span className="scroll-cue"><i />SCROLL</span>
             </div>
           </div>
@@ -126,8 +135,8 @@ export default function Home() {
             <span className="section-label">Our Approach</span>
             <h2 data-reveal="up"><em>AIで</em>業務を効率化<br />最適化を構築します。</h2>
             <p data-reveal="up">
-              業務整理・要件設計から、AI導入、Web・業務システムの開発、運用改善まで。<br />
-              現場で使われ続ける仕組みを構築します。
+              メディア運営支援、AIコンサルティング、Web・業務システムの開発、運用改善まで。<br />
+              事業に合わせた仕組みを構築します。
             </p>
           </div>
         </section>
@@ -155,8 +164,8 @@ export default function Home() {
                 <div className="ai-result"><span>FIELD INPUT</span><i>→</i><b>WORKING SYSTEM</b></div>
               </div>
               <div className="panel-copy" data-reveal="up">
-                <h4>AI・生成AI開発</h4>
-                <p>業務に合わせたAI導入、独自ツール、業務設計と自動化。構想から運用まで一貫して開発します。</p>
+                <h4>AIコンサルティング・生成AI開発</h4>
+                <p>業務に合わせたAI導入、独自ツール、業務設計と自動化。構想から運用まで一貫して支援・開発します。</p>
               </div>
             </div>
           </article>
@@ -181,7 +190,7 @@ export default function Home() {
               </div>
               <div className="panel-copy" data-reveal="up">
                 <h4>Web・業務システム開発</h4>
-                <p>コーポレートサイト、Webアプリ、管理画面。事業に必要な体験と仕組みを、設計から実装します。</p>
+                <p>Webメディアの企画・運営支援、コーポレートサイト、Webアプリ、管理画面。事業に必要な体験と仕組みを設計・実装します。</p>
               </div>
             </div>
           </article>
@@ -219,7 +228,7 @@ export default function Home() {
             </div>
             <div className="store-os-copy" data-reveal="up">
               <p><strong>COMING SOON.</strong><br />新しいプロダクトを開発中です。<br />詳細は近日公開します。</p>
-                <a className="gh-one-coming-link" href="/gh-one/"><span>PRODUCT 01</span>COMING SOON <b>→</b></a>
+              <a className="gh-one-coming-link" href="/gh-one/"><span>PRODUCT 01</span>COMING SOON <b>→</b></a>
             </div>
           </div>
         </section>
@@ -247,7 +256,7 @@ export default function Home() {
             <div className="contact-heading">
               <span className="section-label">Contact</span>
               <h2 data-reveal="up">LET&apos;S<br />TALK.</h2>
-              <p data-reveal="up">AI・システム開発、Web制作、飲食店へのAI導入について、お気軽にご相談ください。</p>
+              <p data-reveal="up">メディア運営支援、AIコンサルティング、システム開発、飲食店DXについて、お気軽にご相談ください。</p>
             </div>
             <ContactForm />
           </div>
@@ -256,7 +265,7 @@ export default function Home() {
 
       <footer>
         <div className="shell footer-grid">
-          <div><b><i>GAMERS</i> HUB</b><p>AI DEVELOPMENT × WEB / SYSTEM × RESTAURANT OPERATION</p></div>
+          <div><b><i>GAMERS</i> HUB</b><p>MEDIA OPERATIONS × AI CONSULTING × WEB / SYSTEM DEVELOPMENT</p></div>
           <nav><a href="#business">Business</a><a href="#restaurant">Restaurant</a><a href="#company">Company</a><a href="#contact">Contact</a></nav>
           <span>© 2026 GAMERS HUB INC.</span>
         </div>

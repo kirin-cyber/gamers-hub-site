@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://www.gamershub.jp
+Sitemap: https://www.gamershub.jp/sitemap.xml
