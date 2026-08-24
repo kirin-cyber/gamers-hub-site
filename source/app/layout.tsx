@@ -11,16 +11,16 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.gamershub.jp"),
   title: {
-    default: "GAMERS HUB | 福岡のAI・システム開発・飲食店DX支援",
+    default: "GAMERS HUB | メディア運営支援・AIコンサルティング・開発",
     template: "%s | GAMERS HUB",
   },
   description:
-    "福岡の開発会社GAMERS HUB。AI・Web・業務システムの企画・開発から飲食店DX支援まで対応。自社運営の炉端居酒屋 獅軍鶏でAIと業務システムを実装・改善し、現場で得た知見を開発に活かしています。",
+    "福岡のGAMERS HUBは、メディア運営支援、AIコンサルティング、生成AI導入、Web・業務システムの企画・開発を行う会社です。飲食店を含む事業の業務設計・運用改善まで支援します。",
   applicationName: "GAMERS HUB",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "AIの力で、事業を動かす。 | GAMERS HUB",
-    description: "AI・Web・業務システム開発と飲食店DX支援を行う福岡の開発会社。自社運営の炉端居酒屋 獅軍鶏で技術を実装・改善しています。",
+    title: "メディア運営支援・AIコンサルティング・開発 | GAMERS HUB",
+    description: "メディア運営支援、AIコンサルティング、生成AI導入、Web・業務システム開発を行う福岡の開発会社です。",
     url: "https://www.gamershub.jp/",
     siteName: "GAMERS HUB",
     locale: "ja_JP",
@@ -36,21 +36,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AIの力で、事業を動かす。 | GAMERS HUB",
-    description: "AI・Web・業務システム開発と飲食店DX支援を行う福岡の開発会社。自社運営の炉端居酒屋 獅軍鶏で技術を実装・改善しています。",
+    title: "メディア運営支援・AIコンサルティング・開発 | GAMERS HUB",
+    description: "メディア運営支援、AIコンサルティング、生成AI導入、Web・業務システム開発を行う福岡の開発会社です。",
     images: ["/og-v3.png"],
   },
   robots: { index: true, follow: true },
-  icons: {
-    icon: "/images/gamershub-logo.jpg",
-    shortcut: "/images/gamershub-logo.jpg",
-    apple: "/images/gamershub-logo.jpg",
-  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja">
+      <head>
+        <link rel="icon" href="/favicon.svg?v=20260825" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/favicon.svg?v=20260825" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/images/gamershub-logo.jpg?v=20260825" />
+      </head>
       <body>{children}</body>
     </html>
   );
