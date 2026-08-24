@@ -2,6 +2,12 @@
 
 > GAMERS HUB | 本音を言える場所をつくる
 
+## 新コーポレートサイトの編集について
+
+- リポジトリ直下の`index.html`、`assets/`、`images/`、`gh-one/`はVercelで公開する生成済みファイルです。
+- [`source/`](source/)にReact / Next.jsの編集可能なソースと再ビルド手順が入っています。
+- 新しいサイトを編集する場合は、まず[`source/README.md`](source/README.md)を参照してください。
+
 静的HTML（ビルド不要）のWebサイトです。このREADMEは、開発環境を引き継ぐ方向けに **SSHでのリポジトリ取得 → ローカル起動** までの手順をまとめたものです。
 
 ---
