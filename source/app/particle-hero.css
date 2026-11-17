@@ -1,0 +1,26 @@
+/* Preserve the site's established black / amber identity and typography. */
+.particle-hero { isolation: isolate; background: #080808; }
+.particle-hero::before, .particle-hero::after { display: none; }
+.particle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.particle-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 22%, #08080812 45%, #08080880 100%), linear-gradient(0deg,#080808 0%,transparent 26%,transparent 78%,#08080880); }
+.particle-hero .hero-word b { transform: none; animation: none; }
+.particle-hero .hero-composition { z-index: 4; }
+.particle-hero .word-build, .particle-hero .word-improve { text-shadow: 0 2px 35px #080808a0; }
+.particle-hero .word-operate { background: var(--orange); color: #080808; }
+.particle-controls { margin-left: auto; display: flex; align-items: center; gap: 24px; }
+.particle-controls button { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 8px; border: 0; background: transparent; color: #a3a39b; font-size: 10px; cursor: pointer; white-space: nowrap; }
+.particle-controls button:disabled { cursor: default; }
+.particle-scroll { display: flex; align-items: center; gap: 20px; min-height: 44px; font-size: 8px; letter-spacing: .18em; }
+.particle-scroll span { font-size: 20px; color: var(--orange); }
+.particle-hero a:focus-visible, .particle-hero button:focus-visible { outline: 2px solid var(--orange); outline-offset: 6px; }
+body:has(.particle-hero) .cursor-dot, body:has(.particle-hero) .cursor-ring, body:has(.particle-hero) .site-loader { display: none; }
+@media (max-width: 760px) {
+  .particle-hero .hero-composition { padding-top: 95px; }
+  .particle-hero .hero-foot { flex-wrap: wrap; }
+  .particle-controls { gap: 12px; }
+  .particle-scroll { gap: 12px; }
+  .particle-hero .hero-statement { min-width: 140px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .particle-hero .hero-word { transform: none; }
+}

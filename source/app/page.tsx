@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ContactForm from "./ContactForm";
 import MotionController from "./MotionController";
+import ParticleHero from "./ParticleHero";
 
 const companyRows = [
   ["会社名", "株式会社GAMER’S HUB"],
@@ -100,27 +101,7 @@ export default function Home() {
       </header>
 
       <main id="top">
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero-stage" aria-hidden="true"><i /><i /><i /></div>
-          <div className="hero-inner">
-            <div className="hero-meta">
-              <span>DEVELOPMENT COMPANY / FUKUOKA</span>
-              <span>EST. 2026</span>
-            </div>
-            <div className="hero-composition">
-              <h1 id="hero-title">
-                <span className="hero-word word-build"><b>BUILD.</b></span>
-                <span className="hero-word word-operate"><b>OPERATE.</b></span>
-                <span className="hero-word word-improve"><b>IMPROVE.</b></span>
-              </h1>
-            </div>
-            <div className="hero-foot">
-              <p className="hero-statement">AIの力で、<br />事業を動かす。</p>
-              <p className="hero-service">MEDIA OPERATIONS<br />AI CONSULTING<br />WEB / SYSTEM DEVELOPMENT</p>
-              <span className="scroll-cue"><i />SCROLL</span>
-            </div>
-          </div>
-        </section>
+        <ParticleHero />
 
         <div className="kinetic-ticker" aria-hidden="true">
           <div className="kinetic-track" data-kinetic="0.18">
